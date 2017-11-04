@@ -5,93 +5,29 @@ Delegate 高度解耦与灵活性的 插拔式(乐高模式)  RecyclerView
 文章是根据一个开发者的小故事对Delegate 模式进行逐步的揭秘，这种设计思路可以拓宽你的视野，对
 构建高质量项目有所助益！  
 
+功能：
+1.帮助创建LayoutManager，省去了new 对象的烦恼
+2.提供MarginDecoration 对item margin 进行设置
+3.提供DividerDecoration 对item 分隔线进行配置
+4.灵活添加、显示 header and footer
+
+优化：
+Grid、StaggeredGrid 添加header、footer时没有占满一行的问题
+
+特点：
+用一句话来概括就是 “Favor composition over inheritance” 组合优于继承。
+插件式设计，高解耦，高维护性，能够对应多变的需求，节约你宝贵的时间。
+
+此项目目的：
+1.是本人对Delegate学习并掌握的练习项目。
+2.为开发者分享一个程序设计思路。
+3.项目中除了手势刷新功能，其基本的小功能都已经添加。
+4.由于是练习项目，根据实际需求开发者可以对某些方法进行优化。
 
 
-
-
-public class CommonAdapter<T extends List<DisplayItem>> extends RecyclerView.Adapter {
-    private T itemList;
-    private AdapterDelegatesManager<T> adapterDelegatesManager;
-    private Activity activity;
-
-   public CommonAdapter(Activity activity, T itemList) {
-        this.itemList = itemList;
-        this.activity = activity;
-
-        adapterDelegatesManager = new AdapterDelegatesManager<>();
-        adapterDelegatesManager.addDelegate((AdapterDelegate<T>) new BeeDelegate(activity));
-        adapterDelegatesManager.addDelegate((AdapterDelegate<T>) new CatDelegate(activity));
-        adapterDelegatesManager.addDelegate((AdapterDelegate<T>) new HeaderDelegate(activity));
-        adapterDelegatesManager.addDelegate((AdapterDelegate<T>) new FooterDelegate(activity));
-
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return adapterDelegatesManager.getItemViewType(itemList, position);
-    }
-
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return adapterDelegatesManager.onCreateViewHolder(parent, viewType);
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        adapterDelegatesManager.onBindViewHolder(itemList, position, holder);
-    }
-
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
-        adapterDelegatesManager.onBindViewHolder(itemList, position, holder, payloads);
-    }
-
-    @Override
-    public int getItemCount() {
-        return itemList == null ? 0 : itemList.size();
-    }
-
-    public void addHeaderAndFooter(boolean isAddHeader, boolean isAddFooter, DisplayItem headerData, DisplayItem footerData)     {
-
-       if (isAddHeader && isAddFooter) {
-            addHeaderOrFooter(headerData, 0);
-            addHeaderOrFooter(footerData, itemList.size());
-        } else if (isAddHeader && headerData != null) {
-            addHeaderOrFooter(headerData, 0);
-        } else if (isAddFooter && footerData != null) {
-            addHeaderOrFooter(footerData, itemList.size());
-        }
-
-    }
-
-    private void addHeaderOrFooter(DisplayItem headerData, int itemListPosition) {
-        itemList.add(itemListPosition, headerData);
-        notifyItemInserted(itemListPosition);
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-
-        if (layoutManager instanceof GridLayoutManager) {
-            final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-
-            gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    AdapterDelegate<T> adapterDelegate = adapterDelegatesManager.getDelegateForViewType(getItemViewType(position));
-                    return adapterDelegate instanceof HeaderDelegate || adapterDelegate instanceof FooterDelegate ? gridLayoutManager.getSpanCount() : 1;
-                }
-            });
-
-            MyApplication.isStaggeredGridLayoutManager = false;
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-            MyApplication.isStaggeredGridLayoutManager = true;
-        } else {
-            MyApplication.isStaggeredGridLayoutManager = false;
-        }
-    }
-}
+如有问题欢迎交流：
+email:lujundevil@sina.com
+qq:270849735
 
 
 
