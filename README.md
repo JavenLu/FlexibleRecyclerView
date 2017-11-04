@@ -10,7 +10,7 @@ public class CommonAdapter<T extends List<DisplayItem>> extends RecyclerView.Ada
     private AdapterDelegatesManager<T> adapterDelegatesManager;
     private Activity activity;
 
-    public CommonAdapter(Activity activity, T itemList) {
+   public CommonAdapter(Activity activity, T itemList) {
         this.itemList = itemList;
         this.activity = activity;
 
@@ -47,9 +47,9 @@ public class CommonAdapter<T extends List<DisplayItem>> extends RecyclerView.Ada
         return itemList == null ? 0 : itemList.size();
     }
 
-    public void addHeaderAndFooter(boolean isAddHeader, boolean isAddFooter, DisplayItem headerData, DisplayItem footerData) {
+    public void addHeaderAndFooter(boolean isAddHeader, boolean isAddFooter, DisplayItem headerData, DisplayItem footerData)     {
 
-        if (isAddHeader && isAddFooter) {
+       if (isAddHeader && isAddFooter) {
             addHeaderOrFooter(headerData, 0);
             addHeaderOrFooter(footerData, itemList.size());
         } else if (isAddHeader && headerData != null) {
