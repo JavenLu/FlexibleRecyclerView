@@ -46,14 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void initView() {
         FlexibleRecyclerView recyclerView = findViewById(javen.example.com.flexiblerecyclerview.R.id.recycler_view);
-        RecyclerView.LayoutManager layoutManager = recyclerView.createGridLayoutManager(LayoutManagerHelper.GRID_TYPE,2);
+        RecyclerView.LayoutManager layoutManager = recyclerView.createGridLayoutManager(LayoutManagerHelper.GRID_TYPE, 2);
 
-        if (layoutManager instanceof GridLayoutManager) {
-        } else if (layoutManager instanceof LinearLayoutManager) {
+        if (layoutManager instanceof LinearLayoutManager) {
             ((LinearLayoutManager) layoutManager).setSmoothScrollbarEnabled(true);
-        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
         }
-
 
         recyclerView.addItemDecoration(new MarginDecoration(MainActivity.this, javen.example.com.flexiblerecyclerview.R.dimen.material_8dp));
         // recyclerView.addItemDecoration(new DividerDecoration(MainActivity.this, R.dimen.material_4dp, R.dimen.material_8dp, DividerDecoration.BOTH_LINE_TYPE));
