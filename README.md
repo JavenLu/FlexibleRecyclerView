@@ -5,6 +5,10 @@ Delegate 高度解耦与灵活性的 插拔式(乐高模式)  RecyclerView
 文章是根据一个开发者的小故事对Delegate 模式进行逐步的揭秘，这种设计思路可以拓宽你的视野，对
 构建高质量项目有所助益！  
 
+
+
+
+
 public class CommonAdapter<T extends List<DisplayItem>> extends RecyclerView.Adapter {
     private T itemList;
     private AdapterDelegatesManager<T> adapterDelegatesManager;
