@@ -1,7 +1,7 @@
 # FlexibleRecyclerView
-Delegate 高度解耦与灵活性的 插拔式(乐高模式)  RecyclerView    
+Delegate 高度解耦与灵活性的 插拔式(观察者-委托 模式)  RecyclerView    
 
-此项目是根据HANNES DORFMANN 的一篇文章《JOE'S GREAT ADAPTER HELL ESCAPE》构建完成的。
+此项目中的Adapter实现是根据HANNES DORFMANN 的一篇文章《JOE'S GREAT ADAPTER HELL ESCAPE》构建完成的。
 文章是根据一个开发者的小故事对Delegate 模式进行逐步的揭秘，这种设计思路可以拓宽你的视野，对
 构建高质量项目有所助益！  
 
